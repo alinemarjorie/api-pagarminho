@@ -20,7 +20,7 @@ app.post('/transactions', function (req, res) {
   })
 })
 
-app.get('/transactions', function (res) {
+app.get('/transactions', function (res, res) {
   return Transactions.findAll()
   .then(transactions => res.send(transactions))
 })
