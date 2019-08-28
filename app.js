@@ -3,14 +3,9 @@ const bodyParser = require('body-parser')
 const PORT = 4000
 const models = require('./models');
 const Transactions = models.Transactions;
-
 const app = express()
 
 app.use(bodyParser.json())
-
-app.post('/', function (req, res) {
-  res.send(req.body)
-})
 
 app.listen(PORT)
 
@@ -25,7 +20,7 @@ app.post('/transactions', function (req, res) {
   })
 })
 
-app.get('/transactions', function (res, res) {
+app.get('/transactions', function (res) {
   return Transactions.findAll()
   .then(transactions => res.send(transactions))
 })
