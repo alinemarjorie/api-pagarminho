@@ -15,27 +15,31 @@ app.post('/transactions', function (req,res) {
     .then((transaction) => {
       let status
       let payment_date = new Date()
-      console.log(payment_date)
+      let amount = transaction.amount
       
-      if(transaction.card_name == "debit_card"){
+      if(transaction.payment_method == "debit_card"){
         status= "paid"
         payment_date = new Date()
+        fee = amount * 0.03
       }else{
         status = "waiting_funds"
         payment_date = payment_date.setDate(payment_date.getDate()+30)
+        fee = amount * 0.05
       }
       
       return Payables.create({
         status,
         payment_date,
+        amount,
+        fee,
       })
+      .then(transactions => res.send(transactions))
     })
     .catch(error => {
       console.log("Deu erro")
       console.log(error)
     })
 })
-
 
 app.get('/transactions', function (req, res) {
   return Transactions.findAll()

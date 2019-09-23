@@ -14,6 +14,12 @@ module.exports = {
       payment_date: {
         type: Sequelize.DATE
       },
+      amount: {
+        type: Sequelize.INTEGER
+      },
+      fee: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
