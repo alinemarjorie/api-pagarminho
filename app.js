@@ -45,3 +45,21 @@ app.get('/transactions', function (req, res) {
   return Transactions.findAll()
   .then(transactions => res.send(transactions))
 })
+
+app.get('/payables/available', function (req, res) {
+  return Payables.findAll({
+    where: {
+    status: "paid"
+    }
+  })
+  .then(payables => res.send(payables))
+})
+
+app.get('/payables/waiting_funds', function (req, res) {
+  return Payables.findAll({
+    where: {
+    status: "waiting_funds"
+    }
+  })
+  .then(payables => res.send(payables))
+})
