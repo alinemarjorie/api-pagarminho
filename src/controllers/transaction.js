@@ -1,16 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const PORT = 5673
-const models = require('./models');
+const models = require('../models');
 const Transactions = models.Transactions;
 const Payables = models.Payables
-const app = express()
 
-app.use(bodyParser.json())
-
-app.listen(PORT)
-
-app.post('/transactions', function (req, res) {
+const createTransaction = (req, res) => {
   Transactions.create(req.body)
     .then((transaction) => {
       let status
@@ -39,27 +31,14 @@ app.post('/transactions', function (req, res) {
       console.log("Deu erro")
       console.log(error)
     })
-})
+}
 
-app.get('/transactions', function (req, res) {
+const listAllTransactions = (req, res) => {
   return Transactions.findAll()
     .then(transactions => res.send(transactions))
-})
+}
 
-app.get('/payables/available', function (req, res) {
-  return Payables.findAll({
-    where: {
-      status: "paid"
-    }
-  })
-    .then(payables => res.send(payables))
-})
-
-app.get('/payables/waiting_funds', function (req, res) {
-  return Payables.findAll({
-    where: {
-      status: "waiting_funds"
-    }
-  })
-    .then(payables => res.send(payables))
-})
+module.exports = {
+  createTransaction,
+  listAllTransactions
+}
