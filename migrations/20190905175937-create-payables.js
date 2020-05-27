@@ -20,6 +20,9 @@ module.exports = {
       fee: {
         type: Sequelize.INTEGER
       },
+      transactionId: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
