@@ -9,5 +9,5 @@ module.exports.transactionValidate = Joi.object({
     card_name: Joi.string().required(),
     card_validate: Joi.string().required(),
     card_cvv: Joi.string().required(),
-  }).unknown(true)
+  })
 }).unknown(true)

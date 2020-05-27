@@ -1,22 +1,40 @@
 const models = require('../models');
 const Payables = models.Payables
 
-const listAvailableFunds = (req, res) => {
-  return Payables.findAll({
+const listAvailableFunds = async (req, res) => {
+try {
+  const payable = await Payables.findAll({
     where: {
       status: "paid"
     }
   })
-    .then(payables => res.send(payables))
+
+  res.send(payable)
+} catch (err) {
+  console.log({
+    err,
+    message: 'deu ruim get payable'
+  })
+  throw err
+}
 }
 
-const listWaitingFunds = (req, res) => {
-  return Payables.findAll({
+const listWaitingFunds = async (req, res) => {
+try {
+  const payable = await Payables.findAll({
     where: {
       status: "waiting_funds"
     }
   })
-    .then(payables => res.send(payables))
+
+  res.send(payable)
+} catch (err) {
+  console.log({
+    err,
+    message: 'deu ruim get payable'
+  })
+  throw err
+}
 }
 
 module.exports = {
